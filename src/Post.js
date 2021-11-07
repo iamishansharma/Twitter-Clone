@@ -1,14 +1,13 @@
 import React, { forwardRef } from "react";
 import "./css/Post.css";
 import { Avatar } from "@material-ui/core";
-import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
-import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
-import RepeatIcon from "@material-ui/icons/Repeat";
+import VerifiedIcon from "@mui/icons-material/Verified";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import PublishIcon from "@material-ui/icons/Publish";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const Post = forwardRef(
-  ({ displayName, username, verified, text, image, avatar }, ref) => {
+  ({ displayName, username, verified, tweetText, image, avatar }, ref) => {
     return (
       <div className="post" ref={ref}>
         <div className="post__avatar">
@@ -20,21 +19,19 @@ const Post = forwardRef(
               <h3>
                 {displayName}{" "}
                 <span className="post__headerSpecial">
-                  {verified && <VerifiedUserIcon className="post__badge" />} @
+                  {verified && <VerifiedIcon className="post__badge" />} @
                   {username}
                 </span>
               </h3>
             </div>
             <div className="post__headerDescription">
-              <p>{text}</p>
+              <p>{tweetText}</p>
             </div>
           </div>
           <img src={image} alt="" />
           <div className="post__footer">
-            <ChatBubbleOutlineIcon fontSize="small" />
-            <RepeatIcon fontSize="small" />
-            <FavoriteBorderIcon fontSize="small" />
-            <PublishIcon fontSize="small" />
+            <EditIcon fontSize="small" />
+            <DeleteIcon fontSize="small" />
           </div>
         </div>
       </div>
