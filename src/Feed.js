@@ -5,19 +5,29 @@ import "./css/Feed.css";
 import FlipMove from "react-flip-move";
 
 function Feed() {
-  const [posts, setPosts] = useState([
-    {
-      tweetId: 1,
-      tweetText: "Hey, this is my first tweet",
-      displayName: "Ishan Sharma",
-      username: "iamishansharma",
-      verified: true,
-      avatar: "https://picsum.photos/200",
-      image: "https://picsum.photos/300/200",
-    },
-  ]);
+  const [posts, setPosts] = useState([]);
 
-  useEffect(() => {}, []);
+  const getTweets = async () => {
+    var axios = require("axios");
+
+    var config = {
+      method: "get",
+      url: "http://localhost:8080/tweets",
+      headers: {},
+    };
+
+    axios(config)
+      .then(function (response) {
+        setPosts(response.data);
+      })
+      .catch(function (error) {
+        console.log("Yeah error: ", error);
+      });
+  };
+
+  useEffect(() => {
+    getTweets();
+  }, []);
 
   return (
     <div className="feed">
@@ -25,7 +35,7 @@ function Feed() {
         <h2>Home</h2>
       </div>
 
-      <TweetBox />
+      <TweetBox setPosts={setPosts} />
 
       <FlipMove>
         {posts.map(post => (

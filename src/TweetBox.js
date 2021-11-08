@@ -3,12 +3,44 @@ import "./css/TweetBox.css";
 import { Avatar, Button } from "@material-ui/core";
 import AvatarImage from "./assets/Avatar.jpg";
 
-function TweetBox() {
+function TweetBox({ setPosts }) {
   const [tweetMessage, setTweetMessage] = useState("");
   const [tweetImage, setTweetImage] = useState("");
 
+  const postTweet = async (tweetObj, setPosts) => {
+    var axios = require("axios");
+    var data = JSON.stringify(tweetObj);
+
+    var config = {
+      method: "post",
+      url: "http://localhost:8080/tweet",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        setPosts(oldarray => [tweetObj, ...oldarray]);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   const sendTweet = e => {
     e.preventDefault();
+
+    const tweetObj = {
+      displayName: "Ishan Sharma",
+      username: "iamishansharma",
+      verified: false,
+      tweetText: `${tweetMessage}`,
+      avatar: "https://picsum.photos/200",
+      image: `${tweetImage}`,
+    };
+    postTweet(tweetObj, setPosts);
 
     setTweetMessage("");
     setTweetImage("");

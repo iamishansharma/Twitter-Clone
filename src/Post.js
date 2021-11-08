@@ -8,6 +8,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 const Post = forwardRef(
   ({ displayName, username, verified, tweetText, image, avatar }, ref) => {
+    const handleDelete = e => {};
+
+    const handleEdit = e => {};
+
     return (
       <div className="post" ref={ref}>
         <div className="post__avatar">
@@ -30,8 +34,8 @@ const Post = forwardRef(
           </div>
           <img src={image} alt="" />
           <div className="post__footer">
-            <EditIcon fontSize="small" />
-            <DeleteIcon fontSize="small" />
+            <EditIcon fontSize="small" onClick={handleEdit} />
+            <DeleteIcon fontSize="small" onClick={handleDelete} />
           </div>
         </div>
       </div>
